@@ -1,9 +1,9 @@
-Project Path: video_clipper_streamlit
+Project Path: video-clipper-streamlit
 
 Source Tree:
 
 ```txt
-video_clipper_streamlit
+video-clipper-streamlit
 ├── README.md
 ├── __init__.py
 ├── app.py
@@ -19,6 +19,7 @@ video_clipper_streamlit
 │   ├── common_steps.py
 │   ├── local_mp4_pipeline.py
 │   └── youtube_pipeline.py
+├── requirements.txt
 ├── services
 │   ├── __init__.py
 │   ├── ffmpeg_service.py
@@ -35,7 +36,7 @@ video_clipper_streamlit
 
 ```
 
-`video_clipper_streamlit/README.md`:
+`video-clipper-streamlit/README.md`:
 
 ```md
 # ✨ AI Video Clipper ✂️
@@ -327,7 +328,7 @@ Once processing is complete:
 
 ```
 
-`video_clipper_streamlit/app.py`:
+`video-clipper-streamlit/app.py`:
 
 ```py
 # video_clipper_streamlit/app.py
@@ -601,14 +602,14 @@ elif st.session_state.processing_log: # Processing was initiated but did not com
     # This state is typically transient or covered by the log itself.
 ```
 
-`video_clipper_streamlit/clipper.ipynb`:
+`video-clipper-streamlit/clipper.ipynb`:
 
 ```ipynb
 {
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": null,
    "id": "4a2095d9",
    "metadata": {},
    "outputs": [],
@@ -631,18 +632,10 @@ elif st.session_state.processing_log: # Processing was initiated but did not com
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": null,
    "id": "11856426",
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2025-06-15 18:14:44,192 - INFO - OpenAI API key loaded successfully.\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "load_dotenv()\n",
     "OPENAI_API_KEY = os.getenv(\"OPENAI_API_KEY\")\n",
@@ -657,18 +650,10 @@ elif st.session_state.processing_log: # Processing was initiated but did not com
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": null,
    "id": "26782a07",
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2025-06-15 18:14:47,872 - INFO - Configuration loaded. Target YouTube URL: https://youtu.be/nvuAt8sl7Ag?si=6x3KLf63BttTX_qx&utm_source=ZTQxO\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "# --- User-Defined Configuration ---\n",
     "youtube_url = \"https://youtu.be/nvuAt8sl7Ag?si=6x3KLf63BttTX_qx&utm_source=ZTQxO\"\n",
@@ -692,7 +677,7 @@ elif st.session_state.processing_log: # Processing was initiated but did not com
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": null,
    "id": "0d28d155",
    "metadata": {},
    "outputs": [],
@@ -709,24 +694,10 @@ elif st.session_state.processing_log: # Processing was initiated but did not com
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": null,
    "id": "fe362d70",
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2025-06-15 18:14:52,477 - INFO - Fetching video info for: https://youtu.be/nvuAt8sl7Ag?si=6x3KLf63BttTX_qx&utm_source=ZTQxO\n",
-      "2025-06-15 18:14:53,040 - INFO - Video Title: The High-Paying AI Job Nobody Knows About (Yet) ft. Rachel Woods\n",
-      "2025-06-15 18:14:53,041 - INFO - Sanitized base title: The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods\n",
-      "2025-06-15 18:14:53,041 - INFO - Attempting to download video to: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:14:53,042 - WARNING - Resolution 720p not found as progressive mp4. Trying best available.\n",
-      "2025-06-15 18:14:53,042 - INFO - Found video stream: Resolution 360p, MIME Type video/mp4\n",
-      "2025-06-15 18:15:06,408 - INFO - Successfully downloaded video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "# --- Download Video ---\n",
     "try:\n",
@@ -779,21 +750,10 @@ elif st.session_state.processing_log: # Processing was initiated but did not com
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": null,
    "id": "248fe260",
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2025-06-15 18:15:09,214 - INFO - Fetching transcript for video ID: nvuAt8sl7Ag...\n",
-      "2025-06-15 18:15:10,300 - INFO - Successfully fetched and saved transcript to: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_transcript.json\n",
-      "2025-06-15 18:15:10,301 - INFO - Transcript loaded/fetched successfully. Number of segments: 1426\n",
-      "2025-06-15 18:15:10,302 - INFO - Full transcript text concatenated. Length: 53713 characters.\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "# --- Fetch and Save Transcript ---\n",
     "if downloaded_video_path and video_base_title: # Proceed only if video download was successful\n",
@@ -848,18 +808,10 @@ elif st.session_state.processing_log: # Processing was initiated but did not com
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": null,
    "id": "629c4f75",
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2025-06-15 18:15:13,852 - INFO - Pydantic model 'VideoAnalysis' defined for topic identification.\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "# --- Pydantic Model for Topic Analysis ---\n",
     "class VideoAnalysis(BaseModel):\n",
@@ -877,23 +829,10 @@ elif st.session_state.processing_log: # Processing was initiated but did not com
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": null,
    "id": "4db76dd3",
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2025-06-15 18:15:16,589 - INFO - Initializing LLM for topic identification...\n",
-      "2025-06-15 18:15:16,835 - INFO - Invoking LLM for topic identification...\n",
-      "2025-06-15 18:15:19,017 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions \"HTTP/1.1 200 OK\"\n",
-      "2025-06-15 18:15:19,036 - INFO - Video Summary: In this video, Rachel Woods discusses the transformative potential of AI in business operations, emphasizing the importance of defining processes for effective AI implementation. She highlights the roles of AI operators, visionaries, and implementers, advocating for a structured approach to integrating AI into business workflows.\n",
-      "2025-06-15 18:15:19,036 - INFO - Identified Topics: ['AI in Business Operations', 'Roles in AI Implementation', 'Defining Processes for AI', 'AI Operator Importance', 'Mindset Shift for AI Usage']\n",
-      "2025-06-15 18:15:19,037 - INFO - Target Audience: Business Leaders\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "# --- LLM for Topic Identification ---\n",
     "identified_topics = [] # Reset global variable\n",
@@ -946,18 +885,10 @@ elif st.session_state.processing_log: # Processing was initiated but did not com
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": null,
    "id": "f2ec0fcd",
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2025-06-15 18:15:23,244 - INFO - Pydantic models 'Segment' and 'SegmentResponse' defined for segment extraction.\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "# --- Pydantic Models for Segment Extraction ---\n",
     "class Segment(BaseModel):\n",
@@ -976,39 +907,10 @@ elif st.session_state.processing_log: # Processing was initiated but did not com
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": null,
    "id": "571d2976",
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2025-06-15 18:15:25,334 - INFO - Initializing LLM for segment extraction...\n",
-      "2025-06-15 18:15:25,336 - INFO - Processing topic 1/5: 'AI in Business Operations'\n",
-      "2025-06-15 18:15:25,337 - INFO - Invoking LLM for segment extraction on topic: 'AI in Business Operations'...\n",
-      "2025-06-15 18:15:30,198 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions \"HTTP/1.1 200 OK\"\n",
-      "2025-06-15 18:15:30,204 - INFO - Found 3 segments for topic 'AI in Business Operations'.\n",
-      "2025-06-15 18:15:30,205 - INFO - Processing topic 2/5: 'Roles in AI Implementation'\n",
-      "2025-06-15 18:15:30,206 - INFO - Invoking LLM for segment extraction on topic: 'Roles in AI Implementation'...\n",
-      "2025-06-15 18:15:36,724 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions \"HTTP/1.1 200 OK\"\n",
-      "2025-06-15 18:15:36,726 - INFO - Found 6 segments for topic 'Roles in AI Implementation'.\n",
-      "2025-06-15 18:15:36,727 - INFO - Processing topic 3/5: 'Defining Processes for AI'\n",
-      "2025-06-15 18:15:36,728 - INFO - Invoking LLM for segment extraction on topic: 'Defining Processes for AI'...\n",
-      "2025-06-15 18:15:42,333 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions \"HTTP/1.1 200 OK\"\n",
-      "2025-06-15 18:15:42,335 - INFO - Found 4 segments for topic 'Defining Processes for AI'.\n",
-      "2025-06-15 18:15:42,336 - INFO - Processing topic 4/5: 'AI Operator Importance'\n",
-      "2025-06-15 18:15:42,337 - INFO - Invoking LLM for segment extraction on topic: 'AI Operator Importance'...\n",
-      "2025-06-15 18:15:45,518 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions \"HTTP/1.1 200 OK\"\n",
-      "2025-06-15 18:15:45,520 - INFO - Found 2 segments for topic 'AI Operator Importance'.\n",
-      "2025-06-15 18:15:45,521 - INFO - Processing topic 5/5: 'Mindset Shift for AI Usage'\n",
-      "2025-06-15 18:15:45,522 - INFO - Invoking LLM for segment extraction on topic: 'Mindset Shift for AI Usage'...\n",
-      "2025-06-15 18:15:48,617 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions \"HTTP/1.1 200 OK\"\n",
-      "2025-06-15 18:15:48,624 - INFO - Found 1 segments for topic 'Mindset Shift for AI Usage'.\n",
-      "2025-06-15 18:15:48,625 - INFO - Total segments extracted across all topics: 16\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "# --- LLM for Segment Extraction (Looping Per Topic) ---\n",
     "all_extracted_segments = [] # Reset global variable\n",
@@ -1080,150 +982,10 @@ elif st.session_state.processing_log: # Processing was initiated but did not com
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": null,
    "id": "d6c8bacf",
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2025-06-15 18:15:52,233 - INFO - Starting FFMPEG clip generation for 16 segments...\n",
-      "2025-06-15 18:15:52,234 - INFO - \n",
-      "Processing segment 1/16 for topic 'AI in Business Operations':\n",
-      "2025-06-15 18:15:52,234 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:15:52,234 - INFO -   Start: 590s, End: 649s, Duration: 59s\n",
-      "2025-06-15 18:15:52,235 - INFO -   Segment Title (Raw): Defining AI Operations in Business\n",
-      "2025-06-15 18:15:52,235 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Defining_AI_Operations_in_Business_59s_0.mp4\n",
-      "2025-06-15 18:15:52,235 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 590 -to 649 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Defining_AI_Operations_in_Business_59s_0.mp4\n",
-      "2025-06-15 18:15:55,983 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Defining_AI_Operations_in_Business_59s_0.mp4\n",
-      "2025-06-15 18:15:55,984 - INFO - \n",
-      "Processing segment 2/16 for topic 'AI in Business Operations':\n",
-      "2025-06-15 18:15:55,984 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:15:55,984 - INFO -   Start: 675s, End: 734s, Duration: 59s\n",
-      "2025-06-15 18:15:55,984 - INFO -   Segment Title (Raw): Roles in AI Implementation\n",
-      "2025-06-15 18:15:55,985 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Roles_in_AI_Implementation_59s_1.mp4\n",
-      "2025-06-15 18:15:55,985 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 675 -to 734 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Roles_in_AI_Implementation_59s_1.mp4\n",
-      "2025-06-15 18:15:59,801 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Roles_in_AI_Implementation_59s_1.mp4\n",
-      "2025-06-15 18:15:59,801 - INFO - \n",
-      "Processing segment 3/16 for topic 'AI in Business Operations':\n",
-      "2025-06-15 18:15:59,802 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:15:59,803 - INFO -   Start: 1195s, End: 1255s, Duration: 60s\n",
-      "2025-06-15 18:15:59,803 - INFO -   Segment Title (Raw): Crafting AI Processes\n",
-      "2025-06-15 18:15:59,803 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Crafting_AI_Processes_60s_2.mp4\n",
-      "2025-06-15 18:15:59,804 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 1195 -to 1255 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Crafting_AI_Processes_60s_2.mp4\n",
-      "2025-06-15 18:16:04,651 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Crafting_AI_Processes_60s_2.mp4\n",
-      "2025-06-15 18:16:04,651 - INFO - \n",
-      "Processing segment 4/16 for topic 'Roles in AI Implementation':\n",
-      "2025-06-15 18:16:04,651 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:16:04,651 - INFO -   Start: 614s, End: 670s, Duration: 56s\n",
-      "2025-06-15 18:16:04,652 - INFO -   Segment Title (Raw): Defining Roles in AI Implementation\n",
-      "2025-06-15 18:16:04,652 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Defining_Roles_in_AI_Implementation_56s_3.mp4\n",
-      "2025-06-15 18:16:04,652 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 614 -to 670 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Defining_Roles_in_AI_Implementation_56s_3.mp4\n",
-      "2025-06-15 18:16:08,084 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Defining_Roles_in_AI_Implementation_56s_3.mp4\n",
-      "2025-06-15 18:16:08,084 - INFO - \n",
-      "Processing segment 5/16 for topic 'Roles in AI Implementation':\n",
-      "2025-06-15 18:16:08,085 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:16:08,085 - INFO -   Start: 670s, End: 724s, Duration: 54s\n",
-      "2025-06-15 18:16:08,086 - INFO -   Segment Title (Raw): The Importance of AI Operators\n",
-      "2025-06-15 18:16:08,086 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_The_Importance_of_AI_Operators_54s_4.mp4\n",
-      "2025-06-15 18:16:08,087 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 670 -to 724 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_The_Importance_of_AI_Operators_54s_4.mp4\n",
-      "2025-06-15 18:16:11,769 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_The_Importance_of_AI_Operators_54s_4.mp4\n",
-      "2025-06-15 18:16:11,769 - INFO - \n",
-      "Processing segment 6/16 for topic 'Roles in AI Implementation':\n",
-      "2025-06-15 18:16:11,770 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:16:11,770 - INFO -   Start: 724s, End: 780s, Duration: 56s\n",
-      "2025-06-15 18:16:11,770 - INFO -   Segment Title (Raw): Visionary Role in AI Integration\n",
-      "2025-06-15 18:16:11,770 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Visionary_Role_in_AI_Integration_56s_5.mp4\n",
-      "2025-06-15 18:16:11,770 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 724 -to 780 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Visionary_Role_in_AI_Integration_56s_5.mp4\n",
-      "2025-06-15 18:16:15,615 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Visionary_Role_in_AI_Integration_56s_5.mp4\n",
-      "2025-06-15 18:16:15,615 - INFO - \n",
-      "Processing segment 7/16 for topic 'Roles in AI Implementation':\n",
-      "2025-06-15 18:16:15,616 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:16:15,616 - INFO -   Start: 780s, End: 836s, Duration: 56s\n",
-      "2025-06-15 18:16:15,617 - INFO -   Segment Title (Raw): Technical Implementation in AI\n",
-      "2025-06-15 18:16:15,617 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Technical_Implementation_in_AI_56s_6.mp4\n",
-      "2025-06-15 18:16:15,618 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 780 -to 836 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Technical_Implementation_in_AI_56s_6.mp4\n",
-      "2025-06-15 18:16:19,735 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Technical_Implementation_in_AI_56s_6.mp4\n",
-      "2025-06-15 18:16:19,735 - INFO - \n",
-      "Processing segment 8/16 for topic 'Roles in AI Implementation':\n",
-      "2025-06-15 18:16:19,736 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:16:19,737 - INFO -   Start: 836s, End: 892s, Duration: 56s\n",
-      "2025-06-15 18:16:19,737 - INFO -   Segment Title (Raw): Navigating AI Implementation Challenges\n",
-      "2025-06-15 18:16:19,737 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Navigating_AI_Implementation_Challenges_56s_7.mp4\n",
-      "2025-06-15 18:16:19,739 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 836 -to 892 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Navigating_AI_Implementation_Challenges_56s_7.mp4\n",
-      "2025-06-15 18:16:24,016 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Navigating_AI_Implementation_Challenges_56s_7.mp4\n",
-      "2025-06-15 18:16:24,016 - INFO - \n",
-      "Processing segment 9/16 for topic 'Roles in AI Implementation':\n",
-      "2025-06-15 18:16:24,017 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:16:24,017 - INFO -   Start: 892s, End: 948s, Duration: 56s\n",
-      "2025-06-15 18:16:24,017 - INFO -   Segment Title (Raw): Feedback and Continuous Improvement in AI\n",
-      "2025-06-15 18:16:24,018 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Feedback_and_Continuous_Improvement_in_AI_56s_8.mp4\n",
-      "2025-06-15 18:16:24,018 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 892 -to 948 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Feedback_and_Continuous_Improvement_in_AI_56s_8.mp4\n",
-      "2025-06-15 18:16:28,312 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Feedback_and_Continuous_Improvement_in_AI_56s_8.mp4\n",
-      "2025-06-15 18:16:28,313 - INFO - \n",
-      "Processing segment 10/16 for topic 'Defining Processes for AI':\n",
-      "2025-06-15 18:16:28,313 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:16:28,314 - INFO -   Start: 590s, End: 646s, Duration: 56s\n",
-      "2025-06-15 18:16:28,314 - INFO -   Segment Title (Raw): Defining AI Operations\n",
-      "2025-06-15 18:16:28,315 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Defining_AI_Operations_56s_9.mp4\n",
-      "2025-06-15 18:16:28,315 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 590 -to 646 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Defining_AI_Operations_56s_9.mp4\n",
-      "2025-06-15 18:16:32,039 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Defining_AI_Operations_56s_9.mp4\n",
-      "2025-06-15 18:16:32,039 - INFO - \n",
-      "Processing segment 11/16 for topic 'Defining Processes for AI':\n",
-      "2025-06-15 18:16:32,040 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:16:32,040 - INFO -   Start: 675s, End: 734s, Duration: 59s\n",
-      "2025-06-15 18:16:32,040 - INFO -   Segment Title (Raw): Roles in AI Implementation\n",
-      "2025-06-15 18:16:32,040 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Roles_in_AI_Implementation_59s_10.mp4\n",
-      "2025-06-15 18:16:32,041 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 675 -to 734 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Roles_in_AI_Implementation_59s_10.mp4\n",
-      "2025-06-15 18:16:36,339 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Roles_in_AI_Implementation_59s_10.mp4\n",
-      "2025-06-15 18:16:36,340 - INFO - \n",
-      "Processing segment 12/16 for topic 'Defining Processes for AI':\n",
-      "2025-06-15 18:16:36,340 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:16:36,341 - INFO -   Start: 1735s, End: 1795s, Duration: 60s\n",
-      "2025-06-15 18:16:36,341 - INFO -   Segment Title (Raw): Crafting Processes for AI\n",
-      "2025-06-15 18:16:36,342 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Crafting_Processes_for_AI_60s_11.mp4\n",
-      "2025-06-15 18:16:36,342 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 1735 -to 1795 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Crafting_Processes_for_AI_60s_11.mp4\n",
-      "2025-06-15 18:16:43,148 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Crafting_Processes_for_AI_60s_11.mp4\n",
-      "2025-06-15 18:16:43,148 - INFO - \n",
-      "Processing segment 13/16 for topic 'Defining Processes for AI':\n",
-      "2025-06-15 18:16:43,149 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:16:43,149 - INFO -   Start: 1971s, End: 2039s, Duration: 68s\n",
-      "2025-06-15 18:16:43,149 - INFO -   Segment Title (Raw): AI Process Documentation\n",
-      "2025-06-15 18:16:43,150 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_AI_Process_Documentation_68s_12.mp4\n",
-      "2025-06-15 18:16:43,150 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 1971 -to 2039 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_AI_Process_Documentation_68s_12.mp4\n",
-      "2025-06-15 18:16:50,697 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_AI_Process_Documentation_68s_12.mp4\n",
-      "2025-06-15 18:16:50,697 - INFO - \n",
-      "Processing segment 14/16 for topic 'AI Operator Importance':\n",
-      "2025-06-15 18:16:50,698 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:16:50,698 - INFO -   Start: 590s, End: 649s, Duration: 59s\n",
-      "2025-06-15 18:16:50,698 - INFO -   Segment Title (Raw): The Role of AI Operators\n",
-      "2025-06-15 18:16:50,700 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_The_Role_of_AI_Operators_59s_13.mp4\n",
-      "2025-06-15 18:16:50,700 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 590 -to 649 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_The_Role_of_AI_Operators_59s_13.mp4\n",
-      "2025-06-15 18:16:54,474 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_The_Role_of_AI_Operators_59s_13.mp4\n",
-      "2025-06-15 18:16:54,475 - INFO - \n",
-      "Processing segment 15/16 for topic 'AI Operator Importance':\n",
-      "2025-06-15 18:16:54,475 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:16:54,476 - INFO -   Start: 674s, End: 734s, Duration: 60s\n",
-      "2025-06-15 18:16:54,476 - INFO -   Segment Title (Raw): AI Operator Responsibilities\n",
-      "2025-06-15 18:16:54,477 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_AI_Operator_Responsibilities_60s_14.mp4\n",
-      "2025-06-15 18:16:54,477 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 674 -to 734 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_AI_Operator_Responsibilities_60s_14.mp4\n",
-      "2025-06-15 18:16:58,421 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_AI_Operator_Responsibilities_60s_14.mp4\n",
-      "2025-06-15 18:16:58,422 - INFO - \n",
-      "Processing segment 16/16 for topic 'Mindset Shift for AI Usage':\n",
-      "2025-06-15 18:16:58,422 - INFO -   Source Video: downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4\n",
-      "2025-06-15 18:16:58,422 - INFO -   Start: 258s, End: 317s, Duration: 59s\n",
-      "2025-06-15 18:16:58,424 - INFO -   Segment Title (Raw): Mindset Shift for AI Usage\n",
-      "2025-06-15 18:16:58,424 - INFO -   Output File: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Mindset_Shift_for_AI_Usage_59s_15.mp4\n",
-      "2025-06-15 18:16:58,425 - INFO -   Executing FFMPEG command: ffmpeg -y -hide_banner -i downloaded_video\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods.mp4 -ss 258 -to 317 -c:v libx264 -crf 18 -preset medium -c:a aac -b:a 192k generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Mindset_Shift_for_AI_Usage_59s_15.mp4\n",
-      "2025-06-15 18:17:01,404 - INFO -   Successfully generated clip: generated_clips\\The_High-Paying_AI_Job_Nobody_Knows_About__Yet__ft__Rachel_Woods_Mindset_Shift_for_AI_Usage_59s_15.mp4\n",
-      "2025-06-15 18:17:01,404 - INFO - \n",
-      "FFMPEG processing finished. Successful clips: 16, Failed clips: 0\n",
-      "2025-06-15 18:17:01,404 - INFO - --- YouTube Clipper Process Complete ---\n",
-      "2025-06-15 18:17:01,405 - INFO - Review your generated clips in the 'generated_clips' directory.\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "# --- FFMPEG Snippet Generation ---\n",
     "if not all_extracted_segments:\n",
@@ -1550,7 +1312,7 @@ elif st.session_state.processing_log: # Processing was initiated but did not com
 
 ```
 
-`video_clipper_streamlit/core\constants.py`:
+`video-clipper-streamlit/core\constants.py`:
 
 ```py
 # core/constants.py
@@ -1581,7 +1343,7 @@ OPENAI_API_TRANSCRIPT_SUFFIX = "_openai_api_transcript.json"
 TEMP_AUDIO_FILE_SUFFIX = ".mp3"
 ```
 
-`video_clipper_streamlit/core\models.py`:
+`video-clipper-streamlit/core\models.py`:
 
 ```py
 # core/models.py
@@ -1610,7 +1372,7 @@ class SegmentResponse(BaseModel):
     segments: List[Segment] = Field(..., description="A list of identified video segments matching the criteria.")
 ```
 
-`video_clipper_streamlit/orchestrators\common_steps.py`:
+`video-clipper-streamlit/orchestrators\common_steps.py`:
 
 ```py
 # orchestrators/common_steps.py
@@ -1721,7 +1483,7 @@ def common_llm_and_clipping_pipeline(
     return orchestration_results
 ```
 
-`video_clipper_streamlit/orchestrators\local_mp4_pipeline.py`:
+`video-clipper-streamlit/orchestrators\local_mp4_pipeline.py`:
 
 ```py
 # orchestrators/local_mp4_pipeline.py
@@ -1885,7 +1647,7 @@ def run_local_mp4_pipeline(
     return master_results
 ```
 
-`video_clipper_streamlit/orchestrators\youtube_pipeline.py`:
+`video-clipper-streamlit/orchestrators\youtube_pipeline.py`:
 
 ```py
 # orchestrators/youtube_pipeline.py
@@ -1894,9 +1656,6 @@ from typing import Dict, Any, Callable, List, Optional # Ensure all needed types
 
 from core import constants
 from services import system_service, video_processing_service, transcription_service 
-# llm_service and ffmpeg_service will be called by common_steps
-
-# Import the common pipeline steps
 from . import common_steps # Relative import for common_steps.py
 
 def run_youtube_pipeline(
@@ -2047,7 +1806,7 @@ def run_youtube_pipeline(
     return master_results
 ```
 
-`video_clipper_streamlit/services\ffmpeg_service.py`:
+`video-clipper-streamlit/services\ffmpeg_service.py`:
 
 ```py
 # services/ffmpeg_service.py
@@ -2129,7 +1888,7 @@ def generate_clip(
         return False
 ```
 
-`video_clipper_streamlit/services\llm_service.py`:
+`video-clipper-streamlit/services\llm_service.py`:
 
 ```py
 # services/llm_service.py
@@ -2145,10 +1904,6 @@ from pydantic import BaseModel, Field
 # Use the specific classes directly, or alias 'core.models' if you prefer 'core_models.Class'
 from core.models import VideoAnalysis, Segment, SegmentResponse 
 from core import constants 
-
-# Remove local SegmentDebug and SegmentResponseDebug as we are using the ones from core.models
-# class SegmentDebug(BaseModel): ...
-# class SegmentResponseDebug(BaseModel): ...
 
 
 def identify_video_topics(
@@ -2322,7 +2077,7 @@ def extract_segments_for_topic(
         return None
 ```
 
-`video_clipper_streamlit/services\system_service.py`:
+`video-clipper-streamlit/services\system_service.py`:
 
 ```py
 # services/system_service.py
@@ -2505,7 +2260,7 @@ def clear_gpu_mem(model_ref=None):
         logging.error(f"Error running garbage collection: {e}", exc_info=True)
 ```
 
-`video_clipper_streamlit/services\transcription_service.py`:
+`video-clipper-streamlit/services\transcription_service.py`:
 
 ```py
 # services/transcription_service.py
@@ -2772,7 +2527,7 @@ def transcribe_with_openai_api(
                 logging.error(f"Failed to delete temporary audio file {temp_audio_file_path}: {e_del}")
 ```
 
-`video_clipper_streamlit/services\video_processing_service.py`:
+`video-clipper-streamlit/services\video_processing_service.py`:
 
 ```py
 # services/video_processing_service.py
@@ -2781,9 +2536,6 @@ import os
 import logging
 from typing import Optional, Dict, Any
 from pytubefix import YouTube
-# If you were to handle Streamlit's UploadedFile directly here, you'd import:
-# from streamlit.runtime.uploaded_file_manager import UploadedFile
-# But it's better to pass file-like objects or paths from app.py
 
 from services.system_service import sanitize_filename # Use sanitize_filename from system_service
 
@@ -2898,7 +2650,7 @@ def save_uploaded_mp4(
         return None
 ```
 
-`video_clipper_streamlit/test_cuda.py`:
+`video-clipper-streamlit/test_cuda.py`:
 
 ```py
 # test_cuda.py
@@ -2910,14 +2662,13 @@ if torch.cuda.is_available():
     print(f"GPU Name: {torch.cuda.get_device_name(0)}")
 ```
 
-`video_clipper_streamlit/ui_components\results_display.py`:
+`video-clipper-streamlit/ui_components\results_display.py`:
 
 ```py
 # ui_components/results_display.py
 import streamlit as st
 import os
 import time
-# Assuming utils re-exports sanitize_filename if needed here, or import from system_service
 from services import system_service # For sanitize_filename
 
 def render_results(results_placeholder_col):
@@ -2972,15 +2723,13 @@ def render_results(results_placeholder_col):
             st.warning("Processing was initiated but may not have completed successfully. Check the log above.")
 ```
 
-`video_clipper_streamlit/ui_components\sidebar.py`:
+`video-clipper-streamlit/ui_components\sidebar.py`:
 
 ```py
 # ui_components/sidebar.py
 import streamlit as st
 from core import constants
-# utils might be needed if get_openai_api_key is still there, or import directly from system_service
-# For this structure, let's assume app.py passes the key or utils.py (facade) is used
-import utils # Assuming utils re-exports system_service.get_openai_api_key
+import utils 
 
 def render_sidebar() -> dict:
     """Renders the sidebar and returns user configuration."""
@@ -3090,7 +2839,7 @@ def render_sidebar() -> dict:
     return config
 ```
 
-`video_clipper_streamlit/ui_components\status_logger.py`:
+`video-clipper-streamlit/ui_components\status_logger.py`:
 
 ```py
 # ui_components/status_logger.py
@@ -3122,7 +2871,7 @@ def display_log(log_container_placeholder): # Pass the placeholder
              """, unsafe_allow_html=True)
 ```
 
-`video_clipper_streamlit/utils.py`:
+`video-clipper-streamlit/utils.py`:
 
 ```py
 # video_clipper_streamlit/utils.py (Thin Facade)

@@ -48,12 +48,12 @@ Automatically extract relevant, short video clips (snippets) from longer video c
     *   Display of GPU information (if an NVIDIA GPU is detected via `nvidia-smi`).
     *   Clear presentation of identified video summary, topics, and generated clips with download buttons.
 -   **Modular and Maintainable Codebase:**
-    *   Separation of UI (`app.py`), orchestration (`utils.py`), core models/constants (`core/`), and distinct functionalities into service modules (`services/`).
+    *   Separation of concerns: UI (`app.py`), orchestration logic (`orchestrators/`), a facade for orchestrators (`utils.py`), core models/constants (`core/`), and distinct functionalities in service modules (`services/`). The `ui_components/` directory is present for potential future UI refactoring.
 
 ## Project Structure
 
 ```txt
-video_clipper_streamlit/
+video-clipper-streamlit/
 ├── app.py                     # Main Streamlit application UI
 ├── core/                      # Core components
 │   ├── constants.py           # Shared constants
@@ -85,14 +85,14 @@ video_clipper_streamlit/
 ├── requirements.txt           # Python dependencies
 └── README.md                  # This file
 ```
-*(Note: `ffmpeg.exe` and `ffprobe.exe` are shown in the structure if you choose to bundle them. Ensure you comply with FFMPEG licensing if distributing.)*
+
 
 ## Setup Instructions
 
 ### Prerequisites
 
 1.  **Python:** Version 3.9 or higher.
-2.  **FFMPEG:** Must be installed and accessible in your system's PATH, OR `ffmpeg.exe` and `ffprobe.exe` must be placed in the `video_clipper_streamlit/` directory. Download from [ffmpeg.org](https://ffmpeg.org/download.html).
+2.  **FFMPEG:** Must be installed and accessible in your system's PATH, OR `ffmpeg.exe` and `ffprobe.exe` must be placed in the `video-clipper-streamlit/` directory. Download from [ffmpeg.org](https://ffmpeg.org/download.html).
 3.  **NVIDIA GPU & CUDA (Optional, for Local Whisper GPU acceleration):**
     *   NVIDIA GPU with CUDA support.
     *   NVIDIA drivers installed.
@@ -105,9 +105,9 @@ video_clipper_streamlit/
 1.  **Clone the Repository (if applicable):**
     ```bash
     git clone <repository_url>
-    cd video_clipper_streamlit 
+    cd video-clipper-streamlit 
     ```
-    If you have the files directly, navigate to the `video_clipper_streamlit` directory.
+    If you have the files directly, navigate to the `video-clipper-streamlit` directory.
 
 2.  **Create and Activate a Virtual Environment:**
     ```bash
@@ -147,7 +147,7 @@ video_clipper_streamlit/
 ### Configuration
 
 1.  **OpenAI API Key:**
-    *   Create a `.env` file in the `video_clipper_streamlit/` directory.
+    *   Create a `.env` file in the `video-clipper-streamlit/` directory.
     *   Add your OpenAI API key to it:
         ```env
         OPENAI_API_KEY="sk-YourActualOpenAIAPIKey"
@@ -157,7 +157,7 @@ video_clipper_streamlit/
 ## How to Run
 
 1.  Ensure your virtual environment is activated.
-2.  Navigate to the `video_clipper_streamlit/` directory in your terminal.
+2.  Navigate to the `video-clipper-streamlit/` directory in your terminal.
 3.  Run the Streamlit application:
     ```bash
     streamlit run app.py
@@ -255,7 +255,7 @@ Once processing is complete:
 ## Troubleshooting
 
 -   **`FileNotFoundError: [WinError 2] The system cannot find the file specified` (related to ffmpeg):**
-    -   Ensure `ffmpeg.exe` and `ffprobe.exe` are either in your system PATH or placed directly in the `video_clipper_streamlit/` directory (where `app.py` runs).
+    -   Ensure `ffmpeg.exe` and `ffprobe.exe` are either in your system PATH or placed directly in the `video-clipper-streamlit/` directory (where `app.py` runs).
     -   Restart your terminal/IDE after modifying PATH.
 -   **Local Whisper runs on CPU instead of GPU:**
     -   Verify your NVIDIA drivers, CUDA Toolkit, and PyTorch (with CUDA support) installation are correct and compatible.
@@ -283,4 +283,3 @@ Once processing is complete:
 -   Option to choose different LLMs for topic identification and segment extraction.
 -   Deployment to a cloud platform (e.g., Streamlit Community Cloud, Heroku, AWS).
 -   More sophisticated transcript pre-processing or chunking for very long videos sent to LLMs.
-
